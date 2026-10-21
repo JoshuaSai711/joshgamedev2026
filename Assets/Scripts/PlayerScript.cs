@@ -9,20 +9,21 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     //These are the player's Variables, the raw info that defines them
-    
+
     //The Rigidbody2D is a component that gives the player physics, and is what we use to move
     public Rigidbody2D RB;
 
     //TextMeshPro is a component that draws text on the screen.
     //We use this one to show our score.
     public TextMeshPro ScoreText;
-    
+    public TextMeshPro HealthText;
+
     //This will control how fast the player moves
     public float Speed = 5;
-    
+
     //This is how many points we currently have
     public int Score = 0;
-    
+    public int Health = 5;
     //Start automatically gets triggered once when the objects turns on/the game starts
     void Start()
     {
@@ -36,10 +37,10 @@ public class PlayerScript : MonoBehaviour
     {
         //The code below controls the character's movement
         //First we make a variable that we'll use to record how we want to move
-        Vector2 vel = new Vector2(0,0);
-        
+        Vector2 vel = new Vector2(0, 0);
+
         //Then we use if statement to figure out what that variable should look like
-        
+
         //If I hold the right arrow key, the player should move right. . .
         if (Keyboard.current.rightArrowKey.isPressed)
         {
@@ -60,7 +61,7 @@ public class PlayerScript : MonoBehaviour
         {
             vel.y = -Speed;
         }
-        
+
         //Finally, I take that variable and I feed it to the component in charge of movement
         RB.linearVelocity = vel;
     }
@@ -75,7 +76,7 @@ public class PlayerScript : MonoBehaviour
             //Run your 'you lose' function!
             Die();
         }
-        
+
         //This checks to see if the thing you bumped into has the CoinScript script on it
         CoinScript coin = other.gameObject.GetComponent<CoinScript>();
         //If it does, run the code block belows
@@ -96,7 +97,10 @@ public class PlayerScript : MonoBehaviour
     {
         ScoreText.text = "Score: " + Score;
     }
-
+    public void UpdateHealth()
+    {
+        HealthText.text = "Health: " + Health; 
+    }
     //If this function is called, the player character dies. The game goes to a 'Game Over' screen.
     public void Die()
     {
