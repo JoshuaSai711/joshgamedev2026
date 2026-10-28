@@ -27,8 +27,10 @@ public class PlayerScript : MonoBehaviour
     //Start automatically gets triggered once when the objects turns on/the game starts
     void Start()
     {
+        UpdateHealth();
         //During setup we call UpdateScore to make sure our score text looks correct
         UpdateScore();
+
     }
 
     //Update is a lot like Start, but it automatically gets triggered once per frame
@@ -73,8 +75,13 @@ public class PlayerScript : MonoBehaviour
         //If it does...
         if (other.gameObject.CompareTag("Hazard"))
         {
+            UpdateHealth();
             //Run your 'you lose' function!
-            Die();
+            if (Health < 0)
+            {
+                Die();
+            }
+           
         }
 
         //This checks to see if the thing you bumped into has the CoinScript script on it
@@ -85,7 +92,7 @@ public class PlayerScript : MonoBehaviour
             //Tell the coin that you bumped into them so they can self destruct or whatever
             coin.GetBumped();
             //Make your score variable go up by one. . .
-            Score++;
+            Score = Score + 1;
             //And then update the game's score text
             UpdateScore();
         }
@@ -99,7 +106,9 @@ public class PlayerScript : MonoBehaviour
     }
     public void UpdateHealth()
     {
-        HealthText.text = "Health: " + Health; 
+       
+        HealthText.text = "Health: " + Health;
+        Health = Health-1;
     }
     //If this function is called, the player character dies. The game goes to a 'Game Over' screen.
     public void Die()
