@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     //This is how many points we currently have
     public int Score = 0;
     public int Health = 5;
+
     //Start automatically gets triggered once when the objects turns on/the game starts
     void Start()
     {
