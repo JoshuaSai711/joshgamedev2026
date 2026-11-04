@@ -25,9 +25,13 @@ public class PlayerScript : MonoBehaviour
     public int Score = 0;
     public int Health = 5;
 
+    public int coinSpawnCount;
+    public SpawnerScript lavaSpawner;
+
     //Start automatically gets triggered once when the objects turns on/the game starts
     void Start()
     {
+        coinSpawnCount = 0;
         UpdateHealth();
         //During setup we call UpdateScore to make sure our score text looks correct
         UpdateScore();
@@ -70,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     //This gets called whenever you bump into another object, like a wall or coin.
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         //This checks to see if the thing you bumped into had the Hazard tag
         //If it does...
@@ -82,7 +86,7 @@ public class PlayerScript : MonoBehaviour
             {
                 Die();
             }
-           
+
         }
 
         //This checks to see if the thing you bumped into has the CoinScript script on it
@@ -92,6 +96,13 @@ public class PlayerScript : MonoBehaviour
         {
             //Tell the coin that you bumped into them so they can self destruct or whatever
             coin.GetBumped();
+            coinSpawnCount = coinSpawnCount + 1;
+            if(coinSpawnCount % 2 == 0) 
+            {
+                Debug.Log("there is not a remainder: " + coinSpawnCount);
+                //if the coinSpawnCount is even, spawn a hazard at this point in the code!
+                lavaSpawner.SpawnNewLava();
+            }
             //Make your score variable go up by one. . .
             Score = Score + 1;
             //And then update the game's score text

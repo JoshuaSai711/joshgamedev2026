@@ -40,4 +40,15 @@ public class SpawnerScript : MonoBehaviour
             Countdown = SpawnTime;
         }
     }
+
+    public void SpawnNewLava()
+    {
+        //First we decide where the object should spawn.
+        //We take the spawner's position (transform.position) and offset it by the random spawn range
+        Vector3 where = transform.position + new Vector3(Random.Range(-Range.x, Range.x),
+            Random.Range(-Range.y, Range.y), 0);
+
+        //This line of code actually spawns the object. Ignore 'Quaternion.identity' for now
+        Instantiate(SpawnedObject, where, Quaternion.identity);
+    }
 }
