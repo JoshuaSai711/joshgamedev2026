@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour
 
     //The Rigidbody2D is a component that gives the player physics, and is what we use to move
     public Rigidbody2D RB;
+    public SpawnerScript spawn;
+    public int coincount;
 
     //TextMeshPro is a component that draws text on the screen.
     //We use this one to show our score.
@@ -82,7 +84,7 @@ public class PlayerScript : MonoBehaviour
             {
                 Die();
             }
-           
+
         }
 
         //This checks to see if the thing you bumped into has the CoinScript script on it
@@ -91,7 +93,14 @@ public class PlayerScript : MonoBehaviour
         if (coin != null)
         {
             //Tell the coin that you bumped into them so they can self destruct or whatever
+            coincount = coincount + 1;
             coin.GetBumped();
+            spawn.SpawnLava();
+            if (coincount % 2 == 0)
+            {
+                spawn.SpawnLava();
+            }
+
             //Make your score variable go up by one. . .
             Score = Score + 1;
             //And then update the game's score text

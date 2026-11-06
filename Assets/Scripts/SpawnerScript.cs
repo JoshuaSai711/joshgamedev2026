@@ -30,7 +30,7 @@ public class SpawnerScript : MonoBehaviour
         {
             //First we decide where the object should spawn.
             //We take the spawner's position (transform.position) and offset it by the random spawn range
-            Vector3 where = transform.position + new Vector3(Random.Range(-Range.x, Range.x), 
+            Vector3 where = new Vector3(Random.Range(-Range.x, Range.x), 
                 Random.Range(-Range.y, Range.y), 0);
             
             //This line of code actually spawns the object. Ignore 'Quaternion.identity' for now
@@ -39,5 +39,16 @@ public class SpawnerScript : MonoBehaviour
             //Finally, reset the Countdown timer so that the countdown starts all over again
             Countdown = SpawnTime;
         }
+    }
+    public void SpawnLava()
+    {
+        Debug.Log("LavaSpawned");
+        //First we decide where the object should spawn.
+        //We take the spawner's position (transform.position) and offset it by the random spawn range
+        Vector3 where = new Vector3(Random.Range(-Range.x, Range.x),
+            Random.Range(-Range.y, Range.y), 0);
+
+        //This line of code actually spawns the object. Ignore 'Quaternion.identity' for now
+        Instantiate(SpawnedObject, where, Quaternion.identity);
     }
 }
